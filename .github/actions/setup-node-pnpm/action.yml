@@ -10,7 +10,7 @@ inputs:
     pnpm-version:
         description: "pnpm version to use"
         required: false
-        default: "10.8.1"
+        default: "11.4.0"
     skip-install:
         description: "Skip dependency installation"
         required: false
