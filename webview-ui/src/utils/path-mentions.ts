@@ -9,7 +9,9 @@
  * @returns A path with spaces escaped
  */
 export function escapeSpaces(path: string): string {
-	return path.replace(/ /g, "\\ ")
+	// Escape all shell metacharacters, not just spaces,
+	// to prevent command injection when the path is used in shell commands.
+	return path.replace(/([\\ !"$&'()*,;<>?[\]^`{|}~])/g, "\\$1")
 }
 
 /**
