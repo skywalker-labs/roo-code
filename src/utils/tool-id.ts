@@ -27,14 +27,14 @@ export function truncateOpenAiCallId(id: string, maxLength: number = OPENAI_CALL
 		return id
 	}
 
-	// Use 8-char hash suffix for uniqueness (from MD5, sufficient for collision resistance in this context)
+	// Use 8-char hash suffix for uniqueness (from SHA-256, sufficient for collision resistance in this context)
 	const hashSuffixLength = 8
 	const separator = "_"
 	// Reserve space for separator + hash
 	const prefixMaxLength = maxLength - separator.length - hashSuffixLength
 
 	// Create hash of the full original ID for uniqueness
-	const hash = crypto.createHash("md5").update(id).digest("hex").slice(0, hashSuffixLength)
+	const hash = crypto.createHash("sha256").update(id).digest("hex").slice(0, hashSuffixLength)
 
 	// Take the prefix and append hash
 	const prefix = id.slice(0, prefixMaxLength)

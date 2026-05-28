@@ -27,14 +27,16 @@ describe("Path Mentions Utilities", () => {
 		})
 
 		it("should not affect already escaped spaces", () => {
-			// This function assumes input spaces are not already escaped
-			// The function will re-escape the backslashes, resulting in double-escaped spaces
-			expect(escapeSpaces("file\\ with\\ spaces.txt")).toBe("file\\\\ with\\\\ spaces.txt")
+			// The escapeSpaces function now escapes all shell metacharacters, including backslashes.
+			// Already-escaped input will have its backslashes and spaces double-escaped.
+			expect(escapeSpaces("file\\ with\\ spaces.txt")).toBe("file\\\\\\ with\\\\\\ spaces.txt")
 		})
 
-		it("should not escape other characters", () => {
+		it("should escape shell metacharacters", () => {
 			expect(escapeSpaces("path/with/slashes")).toBe("path/with/slashes")
 			expect(escapeSpaces("file-with-hyphens.txt")).toBe("file-with-hyphens.txt")
+			expect(escapeSpaces("file$dollar.txt")).toBe("file\\$dollar.txt")
+			expect(escapeSpaces("file'quote.txt")).toBe("file\\'quote.txt")
 		})
 	})
 
