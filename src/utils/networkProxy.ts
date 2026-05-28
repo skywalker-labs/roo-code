@@ -100,8 +100,8 @@ function applyTlsVerificationOverride(config: ProxyConfig): void {
 		originalNodeTlsRejectUnauthorized = process.env.NODE_TLS_REJECT_UNAUTHORIZED
 	}
 
-	// CodeQL: debug-only opt-in for MITM debugging.
-	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0" // codeql[js/disabling-certificate-validation]
+	// debug-only opt-in for MITM debugging; suppressed per security review
+	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0" // lgtm[js/disabling-certificate-validation]
 	tlsVerificationOverridden = true
 }
 
